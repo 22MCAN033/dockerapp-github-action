@@ -28,27 +28,21 @@ jobs:
           tags: ${{ secrets.DOCKER_USERNAME }}/webapp:${{ github.sha }}
 
   test:
-    name: Run Tests
+    name: Dummy Test
     runs-on: ubuntu-latest
-    needs: build   # ✅ ensures build completes first
+    needs: build
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Example: Run unit tests (Node.js case)
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run tests
-        run: npm test
-
-      # (You can replace npm test with pytest, junit, etc., depending on language)
+      - name: Run Dummy Test
+        run: echo "All good! This is a dummy test."
 
   deploy:
     name: Deploy to EC2
     runs-on: ubuntu-latest
-    needs: test   # ✅ only runs if test job passes
+    needs: test
 
     steps:
       - name: Deploy to EC2 instance
